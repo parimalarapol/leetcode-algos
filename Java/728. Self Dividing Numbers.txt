@@ -1,0 +1,35 @@
+class Solution {
+    public List<Integer> selfDividingNumbers(int left, int right) {
+        
+        List<Integer> output = new ArrayList<Integer>();
+        int i = left;
+        
+        while(i <= right) {
+            if (i % 10 != 0) {
+                if(calculateDivision(i) == true)
+                    output.add(i);
+            }             
+            i++;
+        }
+        
+        return output;   
+    }
+    
+    public boolean calculateDivision(int n) {
+        
+        int number = n, rem = 0;
+        
+        while(n > 0) { 
+            
+            rem = n % 10;            
+            if(rem == 0)
+                return false;            
+            if(number % rem != 0)
+                return false;            
+            n = n/10;
+            
+        }
+        
+        return true;        
+    }
+}

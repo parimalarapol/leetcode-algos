@@ -1,0 +1,63 @@
+class Solution {
+    Map<Integer, Number> hmap = new HashMap<>();
+    List<Integer> freqDegreesList = new ArrayList<>();
+    
+    public int findShortestSubArray(int[] nums) {
+        int degree = 1;
+        
+        //inserting into Hashmap
+        for(int i = 0 ; i < nums.length ; i++) {
+            if(hmap.containsKey(nums[i])) {
+                Number numObj = hmap.get(nums[i]);
+                hmap.put(nums[i], new Number(numObj.totCount + 1, numObj.firstIndex, i));
+                if(hmap.get(nums[i]).totCount > degree)
+                    degree = hmap.get(nums[i]).totCount;
+            }
+            else
+                hmap.put(nums[i], new Number(1, i, i));
+        }//for
+        
+        //Iterating for frequency of degrees                
+        int freqOfDegrees = freqOfDegrees(degree);
+                         
+        int smallest = smallestSubArray(nums.length);   
+        return smallest;
+        
+    }
+    
+    //counting all the equal degree numbers to find the shortest
+    public int freqOfDegrees(int degree) {
+        int freqOfDegrees = 0;
+        for(Integer key : hmap.keySet()) {
+            Number numObj = hmap.get(key);
+            if(numObj.totCount == degree) {
+                freqDegreesList.add(key);
+                freqOfDegrees++;
+            }
+        }
+        return freqOfDegrees;
+    }
+    
+    //finding the smallest sub-array
+    public int smallestSubArray(int smallest) {
+        for(Integer key : freqDegreesList) {
+            Number numObj = hmap.get(key);
+            int length = (numObj.lastIndex - numObj.firstIndex) + 1;
+            if(smallest > length)
+                smallest = length;
+        }
+        return smallest;
+    }                     
+}
+
+class Number {
+    int totCount;
+    int firstIndex;
+    int lastIndex;
+    
+    Number(int totalCount, int first, int last) {
+        totCount = totalCount;
+        firstIndex = first;
+        lastIndex = last;
+    }
+}

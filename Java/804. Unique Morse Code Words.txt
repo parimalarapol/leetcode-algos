@@ -1,0 +1,35 @@
+public int uniqueMorseRepresentations(String[] words) {
+        
+        HashSet<String> wordsSet = new HashSet<String>();
+        HashSet<String> morses = new HashSet<String>();
+        
+        for(String word: words) {
+            
+            if(!(wordsSet.contains(word))) {
+                wordsSet.add(word);
+                word = convertToMorses(word);
+                
+                if(!(morses.contains(word)))
+                    morses.add(word);
+            }//if
+            
+        }//for
+        
+        return morses.size();
+    }
+    
+    public String convertToMorses(String word) {
+        
+        char[] chars = word.toCharArray();
+        String[] morse = {".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+        
+        int index = 0;
+        word = "";
+        
+        for(char ch: chars) {
+            index = (int) ch - 'a';
+            word += morse[index];
+        }
+        
+        return word;
+    }

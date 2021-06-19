@@ -1,0 +1,89 @@
+class Solution {
+    public int orangesRotting(int[][] grid) {
+        char[][] gridChar = new char[grid.length][grid[0].length];
+        fillGridChar(grid, gridChar);
+        int minutes = 0;
+        boolean flag = true;
+        
+        while(flag == true) {
+            flag = mainLogic(grid, gridChar);
+            minutes += (flag == true)? 1:0;
+            fillGridChar(grid, gridChar);
+        }
+        
+        for(char[] chars : gridChar){
+           for(char ch : chars)
+               if(ch == 'F')
+                   return -1;
+        }
+        return minutes;
+    }
+    
+    public boolean mainLogic(int[][] grid, char[][] gridChar){
+        boolean flag = false;
+        int row = 0, column = 0;
+        
+        while(row < grid.length){
+            while(column < grid[0].length) {
+                if(gridChar[row][column] == 'R'){
+                    flag = leftRight(grid, row, column, flag);
+                    flag = upDown(grid, row, column, flag);
+                }
+                column++;
+            }
+            row++;
+            column = 0;
+        }   
+        return flag; 
+    }
+    
+    public void fillGridChar(int[][] grid, char[][] gridChar) {
+        int row = 0, column = 0;
+        
+        while(row < grid.length){
+            while(column < grid[0].length) {
+                if(grid[row][column] == 0)
+                    gridChar[row][column] = 'N';
+                else if(grid[row][column] == 1)
+                    gridChar[row][column] = 'F';
+                else if(grid[row][column] == 2)
+                    gridChar[row][column] = 'R';
+                column++;
+            }
+            row++;
+            column = 0;
+        }//outer while
+    }
+    
+    public boolean leftRight(int[][] grid, int row, int column, boolean flag){
+        if(column > 0){
+            if(grid[row][column-1] == 1) {
+                flag = true;
+                grid[row][column-1] = 2;
+            }
+        }
+        if(column < grid[0].length-1){
+            if(grid[row][column+1] == 1) {
+                flag = true;
+                grid[row][column+1] = 2;
+            }
+        }
+        return flag;
+    }
+    
+    public boolean upDown(int[][] grid, int row, int column, boolean flag){
+        if(row > 0){
+            if(grid[row-1][column] == 1){
+                flag = true;
+                grid[row-1][column] = 2;
+            }
+        }
+        if(row < grid.length-1){
+            if(grid[row+1][column] == 1){
+                flag = true;
+                grid[row+1][column] = 2;
+            }
+        }
+        return flag;
+    }
+}

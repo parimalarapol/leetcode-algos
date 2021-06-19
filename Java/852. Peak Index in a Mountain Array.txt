@@ -1,0 +1,26 @@
+public int peakIndexInMountainArray(int[] A) {
+        
+        int lowIndex = 0, highIndex = A.length-1;
+        int mainindex = -1;
+        boolean flag = true;
+        
+        while(flag == true && lowIndex <= highIndex) {
+            
+            if(A[lowIndex] < A[lowIndex+1])
+                lowIndex++;
+            else if (flag == true){
+                mainindex = lowIndex;
+                flag = false;
+            } 
+            
+            if(A[highIndex] < A[highIndex-1])
+                highIndex--;
+            else if (flag == true){
+                mainindex = highIndex;
+                flag = false;
+            }  
+            
+        }//while
+        
+        return mainindex;
+    }

@@ -1,0 +1,15 @@
+class Solution {
+    public int findNumbers(int[] nums) {
+        
+        int qot = 0, sum = 0;
+        
+        for(int n : nums){
+            qot = n/10;
+            
+            if((qot >= 1 & qot < 9) || (qot >= 100 & qot < 999))
+                sum++;             
+        } 
+        
+        return sum;
+    }
+}

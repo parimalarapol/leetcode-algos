@@ -1,0 +1,15 @@
+    
+        int n = x^y;
+        int counter = 0;
+        
+        System.out.println(n);
+        
+        while(n > 0) {
+            if((n & 1) == 1)
+                counter++;
+            n = n >> 1;
+        }
+        
+        return counter;
+        
+    }

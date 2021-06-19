@@ -1,0 +1,16 @@
+public int[] diStringMatch(String S) {
+        
+        int[] A = new int[S.length()+1];
+        char[] chars = S.toCharArray();
+        int small = 0, high = S.length(), i = 0;
+        
+        for(i = 0 ; i <= chars.length ; i++) {
+            
+            if(i == chars.length || chars[i] == 'I')
+                A[i] = small++;
+            
+            else if(chars[i] == 'D')
+                A[i] = high--;
+        }
+        return A;
+    }

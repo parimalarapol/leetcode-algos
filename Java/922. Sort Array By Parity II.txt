@@ -1,0 +1,33 @@
+class Solution {
+    public int[] sortArrayByParityII(int[] A) {
+        
+        int even_index = 0, odd_index = 1;
+        int even = 0, odd = 0;
+        
+        if(A.length == 1)
+            return A;
+        
+        while(even_index < A.length && odd_index < A.length) {
+        
+            even = A[even_index];
+            odd = A[odd_index];
+            
+            if(even % 2 == 0)
+                even_index += 2;
+            
+            else if(odd % 2 != 0)
+                odd_index += 2; 
+            
+            else {
+                A[even_index] = odd;
+                A[odd_index] = even;
+                even_index += 2;
+                odd_index += 2; 
+            }
+            
+        }//while
+        
+        return A;
+        
+    }
+}

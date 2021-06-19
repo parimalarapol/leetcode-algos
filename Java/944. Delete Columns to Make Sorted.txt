@@ -1,0 +1,29 @@
+class Solution {
+    public int minDeletionSize(String[] A) {
+        
+        int i = 0, length = 0;
+        if(A.length > 1){
+            while(i < A[0].length()){
+                length += removeCurrentColumn(A, i);
+                i++;
+            }
+        } 
+        return length;
+    }
+    
+    public int removeCurrentColumn(String[] A, int column){
+        
+        for(int row = 0 ; row < A.length-1 ; row++) {
+            
+            if(A[row].length() != A[row+1].length())
+                return 0;
+
+            char chars_curr = A[row].charAt(column);
+            char chars_next = A[row+1].charAt(column);
+            
+            if(chars_curr > chars_next)
+                return 1;
+        }
+        return 0;
+    }
+}
